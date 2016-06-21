@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MoviesViewController: UITableViewController {
-    var repository: MovieRepositoryProtocol!
+class MoviesViewController: UITableViewController, MovieRepositoryProvider {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,3 +50,17 @@ class MoviesViewController: UITableViewController {
     }
 
 }
+
+// mocking repository
+//private var inMemoriRepository: MovieRepositoryProtocol = {
+//    var repository = InMemoryRepository()
+//    repository.addMovie(Movie(title: "Back to the Future", director: "Robert Zemeckis"))
+//    repository.addMovie(Movie(title: "Back to the Future PART 2", director: "Robert Zemeckis"))
+//    repository.addMovie(Movie(title: "Back to the Future PART 3", director: "Robert Zemeckis"))
+//    return repository
+//}()
+//extension MovieRepositoryProvider where Self: MoviesViewController {
+//    var repository: MovieRepositoryProtocol {
+//        return inMemoriRepository
+//    }
+//}

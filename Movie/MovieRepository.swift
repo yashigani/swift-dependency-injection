@@ -64,3 +64,21 @@ protocol MovieRepositoryProtocol {
     func addMovie(movie: Movie)
     func findMovie(by director: String) -> [Movie]
 }
+
+protocol MovieRepositoryProvider {
+    var repository: MovieRepositoryProtocol { get }
+}
+
+class InMemoryRepository: MovieRepositoryProtocol {
+    private var movies = [Movie]()
+    var allMovies: [Movie] { return movies }
+
+    func addMovie(movie: Movie) {
+        movies.append(movie)
+    }
+
+    func findMovie(by director: String) -> [Movie] {
+        return movies.filter { $0.director == director }
+    }
+
+}

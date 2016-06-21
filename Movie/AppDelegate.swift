@@ -27,10 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ])
 
         repository = PlistRepository(userDefaults: defaults)
-        if let vc = window?.rootViewController?.childViewControllers.first as? MoviesViewController {
-            vc.repository = repository
-        }
         return true
     }
 
+}
+
+extension MovieRepositoryProvider {
+    var repository: MovieRepositoryProtocol {
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return delegate.repository
+    }
 }
