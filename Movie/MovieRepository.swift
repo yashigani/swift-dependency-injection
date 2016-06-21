@@ -15,7 +15,7 @@ protocol UserDefaultsProtocol {
 
 extension NSUserDefaults: UserDefaultsProtocol {}
 
-class PlistRepository {
+class PlistRepository: MovieRepositoryProtocol {
     let userDefaults: UserDefaultsProtocol
     var allMovies: [Movie] {
         guard let objects = userDefaults.objectForKey("allmovies") as? [[String: String]] else {
@@ -56,4 +56,11 @@ extension Movie {
     var dictionary: [String: String] {
         return ["title": title, "director": director]
     }
+}
+
+protocol MovieRepositoryProtocol {
+    var allMovies: [Movie] { get }
+
+    func addMovie(movie: Movie)
+    func findMovie(by director: String) -> [Movie]
 }

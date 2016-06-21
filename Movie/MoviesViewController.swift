@@ -9,7 +9,7 @@
 import UIKit
 
 class MoviesViewController: UITableViewController {
-    var repository: PlistRepository!
+    var repository: MovieRepositoryProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
