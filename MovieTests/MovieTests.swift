@@ -9,28 +9,34 @@
 import XCTest
 @testable import Movie
 
+
 class MovieTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        mockRepository = InMemoryRepository()
+        mockRepository.addMovie(Movie(title: "protocol extension", director: "yashigani"))
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func testViewController() {
+        let vc = MoviesViewController()
+        let repository = vc.repository
+        XCTAssertEqual(repository.allMovies.count, 1)
+        
+        let movie = repository.findMovie(by: "yashigani")
+        XCTAssertNotNil(movie)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+}
+
+private var mockRepository: InMemoryRepository!
+
+extension MovieRepositoryProvider where Self: MoviesViewController {
+    var repository: MovieRepositoryProtocol {
+        return mockRepository
     }
-    
 }
